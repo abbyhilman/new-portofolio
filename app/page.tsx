@@ -92,9 +92,8 @@ export default function Portfolio() {
       title: "MServiceDesk",
       description: "Digital service platform by Telkomsel’s SSOE and IT SQM. Streamlines IT and non-IT employee support with efficient tools.",
       image: "/logo-mservicedesk.png",
-      tech: ["React Native", "Redux", ""],
+      tech: ["React Native", "Redux", "CodePush", "FastLane"],
       features: [
-        "AI-powered workout recommendations",
         "Real-time heart rate monitoring",
         "Nutrition tracking and meal planning",
         "Progress visualization with charts",
@@ -188,6 +187,51 @@ export default function Portfolio() {
 
   const freelanceProjects = [
     {
+      title: "Company Profile Lestari Jaya Tama",
+      client: "PT. Lestari Jaya Tama",
+      duration: "Completed", // Sesuaikan jika sudah selesai
+      description:
+        "Developing the official company profile website to showcase services, portfolio, and contact information. Focus on SEO, performance, and user experience.",
+      tech: ["Next JS", "Google Tag Manager", "Axios", "reCAPTCHA", "Tailwind CSS"],
+      image:
+        "/lestari-jaya-tama-cp-satu.png", // Ganti dengan path gambar yang sesuai
+      features: [
+        "SEO-friendly structure with Next.js",
+        "Analytics implementation via Google Tag Manager",
+        "Contact forms secured with reCAPTCHA",
+        "Responsive design for all devices",
+        "High-performance website loading",
+      ],
+      screenshots: [
+        "/lestari-jaya-tama-cp-satu.png", // Ganti dengan path screenshot yang sesuai
+        "/lestari-jaya-tama-cp-dua.png",
+        "/lestari-jaya-tama-cp-tiga.png",
+      ],
+      appLink: "https://lestarijayatama.com/",
+    },
+    {
+      title: "CMS Lestari Jaya Tama",
+      client: "PT. Lestari Jaya Tama",
+      duration: "Ongoing/Completed", // Sesuaikan jika sudah selesai
+      description:
+        "Building a Content Management System (CMS) dashboard to manage company data, articles, and service locations. Integrated with mapping features for visualization.",
+      tech: ["Next JS", "Leaflet", "Axios", "TypeScript", "Tailwind CSS"],
+      image:
+        "/lestari-jaya-tama-cms.png", // Ganti dengan path gambar yang sesuai
+      features: [
+        "Interactive map integration using Leaflet for location management",
+        "Secure dashboard for content and user management",
+        "REST API calls handled by Axios",
+        "Intuitive interface for non-technical users",
+        "Data visualization capabilities",
+      ],
+      screenshots: [
+        "/lestari-jaya-tama-cms-satu.png", // Ganti dengan path screenshot yang sesuai
+        "/lestari-jaya-tama-cms-dua.png",
+      ],
+      appLink: "https://dashboard.lestarijayatama.com/",
+    },
+    {
       title: "Website Portal",
       client: "DPMPTSP Tangerang Selatan",
       duration: "Complete",
@@ -216,7 +260,7 @@ export default function Portfolio() {
         "Developed a comprehensive mobile application for managing Umrah and Hajj travel packages, including booking system and travel guidance.",
       tech: ["Flutter", "Firebase", "Google Maps API", "CMS", "Payment Gateway"],
       image:
-        "https://gcdnb.pbrd.co/images/8ZJqwTzasKwh.png?o=1",
+        "/yadara.png",
       features: [
         "Real-time prayer times and Qibla direction",
         "Interactive maps of holy sites",
@@ -225,9 +269,8 @@ export default function Portfolio() {
         "Earn commissions on every booking made through the app"
       ],
       screenshots: [
-        "https://gcdnb.pbrd.co/images/TvQg9RwuU60z.jpg?o=1",
-        "https://gcdnb.pbrd.co/images/BPmZEXs3AfXb.jpg?o=1",
-        "https://gcdnb.pbrd.co/images/o5fpbmy5uzEJ.jpg?o=1",
+        "/mockup_yadara.png",
+        "/mockup_yadara_2.png",
       ],
       appLink: "https://yadaratravel.id/",
     },

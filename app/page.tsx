@@ -28,8 +28,20 @@ interface FormData {
   body: string;
 }
 
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  tech: string[];
+  features: string[];
+  screenshots: string[];
+  client: string;
+  appLink?: string;
+  duration?: string;
+}
+
 export default function Portfolio() {
-  const [selectedProject, setSelectedProject] = useState(null)
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -127,12 +139,34 @@ export default function Portfolio() {
     },
   ];
 
+  // Helper function to calculate period between two dates
+  const calculatePeriod = (startDate: string, endDate?: string): string => {
+    const start = new Date(startDate);
+    const end = endDate ? new Date(endDate) : new Date();
+
+    let years = end.getFullYear() - start.getFullYear();
+    let months = end.getMonth() - start.getMonth();
+
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    if (years === 0) {
+      return `${months} month${months !== 1 ? 's' : ''}`;
+    } else if (months === 0) {
+      return `${years} year${years !== 1 ? 's' : ''}`;
+    } else {
+      return `${years} year${years !== 1 ? 's' : ''} ${months} month${months !== 1 ? 's' : ''}`;
+    }
+  };
+
   const workExperience = [
     {
       company: "PT Hanwhalife Insurance Indonesia",
       position: "Senior Mobile Developer",
       duration: "2022 - Present",
-      period: "2 years 10 months",
+      startDate: "2022-02-01", // February 2022
       description:
         "Implementing best practices, and delivering high-quality applications for enterprise clients.",
       tech: ["Flutter", "Firebase", 'Gitlab', 'CodeMagic'],
@@ -149,7 +183,8 @@ export default function Portfolio() {
       company: "PT. Astra Graphia Information Technology (AGIT)",
       position: "Mobile Developer",
       duration: "Jan 2021 - Jun 2022",
-      period: "1 year 6 months",
+      startDate: "2021-01-01",
+      endDate: "2022-06-30",
       description:
         "Developed and maintained multiple mobile applications, focusing on performance optimization and user experience.",
       tech: ["React Native", "Firebase", "Redux", "App Center", "Fastlane"],
@@ -163,7 +198,8 @@ export default function Portfolio() {
       company: "Mednefits PTE LTD",
       position: "Mobile Developer",
       duration: "Apr 2020 - Dec 2020",
-      period: "9 months",
+      startDate: "2020-04-01",
+      endDate: "2020-12-31",
       description: "Collaborated on mobile app development projects and gained expertise in modern mobile frameworks.",
       tech: ["React Native", "Redux", "Firebase", "ClickUp"],
       achievements: [
@@ -176,7 +212,8 @@ export default function Portfolio() {
       company: "GenIO",
       position: "Mobile Developer Intern",
       duration: "2019",
-      period: "3 months",
+      startDate: "2019-09-01",
+      endDate: "2019-12-31",
       description: "Assisted in mobile app development and learned industry best practices.",
       tech: ["React Native"],
       achievements: [
@@ -283,7 +320,7 @@ export default function Portfolio() {
     { category: "Tools", items: ["Git", "CI/CD", "Fastlane", "CodeMagic", "CodePush", "Figma"] },
   ]
 
-  const ProjectModal = ({ project, onClose }) => (
+  const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => void }) => (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -668,7 +705,7 @@ export default function Portfolio() {
                     </div>
                     <div className="text-left md:text-right">
                       <p className="text-gray-600 dark:text-gray-300">{job.duration}</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{job.period}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{calculatePeriod(job.startDate, job.endDate)}</p>
                     </div>
                   </div>
                   <p className="text-gray-600 dark:text-gray-300 mb-4">{job.description}</p>

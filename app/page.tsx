@@ -163,20 +163,58 @@ export default function Portfolio() {
 
   const workExperience = [
     {
+      company: "PT Bank Syariah Nasional",
+      position: "Full Stack Developer",
+      duration: "Jan 2026 - Present",
+      startDate: "2026-01-01",
+      description:
+        "Developing and maintaining digital banking solutions across mobile apps, internal portals, and backend services.",
+      tech: [
+        "Java Spring",
+        "Kotlin",
+        "Next JS",
+        "Redux",
+        "Firebase",
+        "PostgreSQL",
+        "DBeaver",
+        "Bruno",
+        "Elastic",
+        "Dynatrace",
+        "Python",
+        "Machine Learning",
+        "Golang",
+        "Supabase",
+        "GCP",
+        "Nexus",
+        "Minion",
+        "Jenkins",
+        "Docker",
+      ],
+      achievements: [
+        "Maintained Android mobile applications using Kotlin",
+        "Developed and maintained Back Office Portal using Next JS with Redux for state management",
+        "Maintained and developed backend services for Mobile Bale Syariah using Java Spring",
+        "Handled API testing and debugging using Bruno, Elastic, and Dynatrace",
+        "Managed database activities using PostgreSQL and DBeaver",
+        "Supported delivery pipeline and deployment process using Jenkins, Docker, Nexus, and GCP",
+      ],
+    },
+    {
       company: "PT Hanwhalife Insurance Indonesia",
       position: "Senior Mobile Developer",
-      duration: "2022 - Present",
-      startDate: "2022-02-01", // February 2022
+      duration: "Feb 2022 - Jan 2026",
+      startDate: "2022-02-01",
+      endDate: "2026-01-31",
       description:
         "Implementing best practices, and delivering high-quality applications for enterprise clients.",
-      tech: ["Flutter", "Firebase", 'Gitlab', 'CodeMagic'],
+      tech: ["Flutter", "Firebase", "Gitlab", "CodeMagic"],
       achievements: [
         "Maintenance and Create Mobile Application (Android & iOS)",
         "Reduced app crash rate by 75% through implementing comprehensive testing",
         "Using firebase for crashlytics, analytic, push notification and then cloud firestore",
         "Create feature OCR, Face Recognition and Sign Digital",
         "Configuring CI/CD on CodeMagic",
-        "Deployment to Playstore & Appstore"
+        "Deployment to Playstore & Appstore",
       ],
     },
     {
@@ -314,10 +352,10 @@ export default function Portfolio() {
   ]
 
   const skills = [
-    { category: "Mobile", items: ["React Native", "Flutter", "Kotlin", "Expo"] },
-    { category: "Frontend", items: ["React", "Next JS", "Vue JS", "TypeScript", "JavaScript", "HTML/CSS", "Tailwind CSS"] },
-    { category: "Backend", items: ["Node.js", "Firebase", "MongoDB", "Laravel", "PHP", "REST API"] },
-    { category: "Tools", items: ["Git", "CI/CD", "Fastlane", "CodeMagic", "CodePush", "Figma"] },
+    { category: "Frontend", items: ["Next JS", "React", "Redux", "TypeScript", "JavaScript", "HTML/CSS", "Tailwind CSS"] },
+    { category: "Backend", items: ["Java Spring", "Golang", "Firebase", "Supabase", "PostgreSQL", "REST API"] },
+    { category: "Mobile", items: ["Kotlin", "React Native", "Flutter"] },
+    { category: "Tools & Cloud", items: ["GCP", "Docker", "Jenkins", "Nexus", "Bruno", "DBeaver", "Elastic", "Dynatrace", "Python", "Machine Learning", "Minion"] },
   ]
 
   const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => void }) => (
@@ -443,7 +481,7 @@ export default function Portfolio() {
                 delay: 0.4,
               }}
             >
-              Mobile Apps Developer
+              Full Stack Developer
             </motion.h2>
             <motion.div
               className="flex gap-6 justify-center"
@@ -560,18 +598,18 @@ export default function Portfolio() {
               transition={{ delay: 0.2 }}
             >
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg mb-8">
-                Passionate mobile developer with 4+ years of experience in creating innovative and user-friendly
-                applications. Specialized in React Native and Flutter development, with a strong focus on clean code and
-                optimal performance.
+                Passionate full stack developer with 6+ years of experience in building scalable web, mobile, and
+                backend applications. Specialized in Next JS, Kotlin, and Java Spring, with a strong focus on clean
+                architecture, maintainable code, and optimal performance.
               </p>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg mb-8">
-                I've worked with startups, consultants, medical payment, and insurance industries, delivering solutions that
-                combine technical excellence with exceptional user experiences.
+                I've worked across startup, enterprise, insurance, and digital banking industries, delivering end-to-end
+                solutions from frontend interfaces and Android apps to backend services, databases, and deployment pipelines.
               </p>
               <div className="mt-6">
                 <h3 className="font-semibold mb-4 text-xl dark:text-white">Tech Stack:</h3>
                 <div className="flex flex-wrap gap-3">
-                  {["React Native", "Flutter", "TypeScript", "Firebase", "Redux", "Next JS"].map((tech, index) => (
+                  {["Next JS", "Redux", "Kotlin", "Java Spring", "PostgreSQL", "Docker"].map((tech, index) => (
                     <motion.span
                       key={tech}
                       className="bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-full text-sm dark:text-gray-200"
@@ -591,7 +629,7 @@ export default function Portfolio() {
             <div className="grid grid-cols-2 gap-6">
               {[
                 { icon: Smartphone, title: "Mobile Apps", value: "3+ Released" },
-                { icon: Code2, title: "Experience", value: "4+ Years" },
+                { icon: Code2, title: "Experience", value: "6+ Years" },
                 { icon: Star, title: "App Rating", value: "4.8/5.0" },
                 {
                   icon: ExternalLink,
@@ -1057,4 +1095,3 @@ export default function Portfolio() {
     </div>
   )
 }
-

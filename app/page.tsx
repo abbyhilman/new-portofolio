@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { useState, Suspense } from "react"
-import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion"
+import { useState, Suspense } from "react";
+import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import {
   Github,
   Linkedin,
@@ -13,14 +13,18 @@ import {
   Briefcase,
   X,
   ExternalLink,
-} from "lucide-react"
-import { Canvas } from "@react-three/fiber"
-import { Environment } from "@react-three/drei"
-import dynamic from "next/dynamic"
+} from "lucide-react";
+import { Canvas } from "@react-three/fiber";
+import { Environment } from "@react-three/drei";
+import dynamic from "next/dynamic";
 
 // Dynamically import the 3D components to avoid SSR issues
-const ParticleField = dynamic(() => import("@/components/particle-field"), { ssr: false })
-const FloatingPhone = dynamic(() => import("@/components/floating-phone"), { ssr: false })
+const ParticleField = dynamic(() => import("@/components/particle-field"), {
+  ssr: false,
+});
+const FloatingPhone = dynamic(() => import("@/components/floating-phone"), {
+  ssr: false,
+});
 
 interface FormData {
   senderEmail: string;
@@ -41,25 +45,28 @@ interface Project {
 }
 
 export default function Portfolio() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
-  const { scrollYProgress } = useScroll()
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001,
-  })
-
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isDownloadModalOpen, setIsDownloadModalOpen] = useState<boolean>(false);
-  const [formData, setFormData] = useState<FormData>({
-    senderEmail: '',
-    subject: '',
-    body: ''
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isDownloadModalOpen, setIsDownloadModalOpen] =
+    useState<boolean>(false);
+  const [formData, setFormData] = useState<FormData>({
+    senderEmail: "",
+    subject: "",
+    body: "",
+  });
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   // Fungsi untuk menangani unduhan resume
@@ -74,13 +81,40 @@ export default function Portfolio() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const mailtoLink = `mailto:abbyhilman@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(formData.body + '\n\nFrom: ' + formData.senderEmail)}`;
+    const mailtoLink = `mailto:abbyhilman@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(formData.body + "\n\nFrom: " + formData.senderEmail)}`;
     window.location.href = mailtoLink;
     setIsModalOpen(false);
-    setFormData({ senderEmail: '', subject: '', body: '' });
+    setFormData({ senderEmail: "", subject: "", body: "" });
   };
 
   const projects = [
+    {
+      title: "Bale Syariah",
+      description:
+        "Digital banking application and supporting ecosystem for PT Bank Syariah Nasional, covering Android app maintenance, back office portal development, and backend service enhancement.",
+      image: "/logo-bsn.png",
+      tech: [
+        "Kotlin",
+        "Java Spring",
+        "Next JS",
+        "Redux",
+        "PostgreSQL",
+        "Firebase",
+        "Jenkins",
+        "Docker",
+      ],
+      features: [
+        "Maintained Android mobile application using Kotlin",
+        "Developed and maintained Back Office Portal using Next JS with Redux for state management",
+        "Maintained and enhanced backend services for Mobile Bale Syariah using Java Spring",
+        "Supported API monitoring and troubleshooting using Bruno, Elastic, and Dynatrace",
+        "Supported deployment pipeline using Jenkins, Docker, Nexus, and GCP",
+      ],
+      screenshots: [],
+      client: "PT Bank Syariah Nasional",
+      appLink:
+        "https://play.google.com/store/apps/details?id=co.id.newmb.btnsyariah&pcampaignid=web_share",
+    },
     {
       title: "Mednefits",
       description:
@@ -99,10 +133,13 @@ export default function Portfolio() {
         "/mednefist_tiga.png",
       ],
       client: "Mednefits PTE LTD",
+      appLink:
+        "https://play.google.com/store/apps/details?id=com.sg.medicloud&hl=en",
     },
     {
       title: "MServiceDesk",
-      description: "Digital service platform by Telkomsel’s SSOE and IT SQM. Streamlines IT and non-IT employee support with efficient tools.",
+      description:
+        "Digital service platform by Telkomsel’s SSOE and IT SQM. Streamlines IT and non-IT employee support with efficient tools.",
       image: "/logo-mservicedesk.png",
       tech: ["React Native", "Redux", "CodePush", "FastLane"],
       features: [
@@ -111,18 +148,23 @@ export default function Portfolio() {
         "Progress visualization with charts",
         "Social sharing and challenges",
       ],
-      screenshots: [
-        "/msd_satu.png",
-        "/msd_dua.png",
-        "/msd_tiga.png",
-      ],
+      screenshots: ["/msd_satu.png", "/msd_dua.png", "/msd_tiga.png"],
       client: "Telkomsel",
+      appLink: "https://m.helpdesk-web.telkomsel.co.id/landingpage/",
     },
     {
       title: "Orange Planner",
-      description: "Mobile app for insurance agents. Simplifies client data entry, e-submission, and policy tracking for Hanwha Life Indonesia.",
+      description:
+        "Mobile app for insurance agents. Simplifies client data entry, e-submission, and policy tracking for Hanwha Life Indonesia.",
       image: "/logo-op.png",
-      tech: ["Flutter", "Firebase", "GetX", "Push Notifications", "OCR", "Face Recognition"],
+      tech: [
+        "Flutter",
+        "Firebase",
+        "GetX",
+        "Push Notifications",
+        "OCR",
+        "Face Recognition",
+      ],
       features: [
         "Real-time price tracking for 1000+ cryptocurrencies",
         "Portfolio management with performance metrics",
@@ -130,12 +172,10 @@ export default function Portfolio() {
         "News aggregation from trusted sources",
         "Secure wallet integration",
       ],
-      screenshots: [
-        "orange_satu.png",
-        "orange_dua.png",
-        "orange_tiga.png",
-      ],
+      screenshots: ["orange_satu.png", "orange_dua.png", "orange_tiga.png"],
       client: "Hanwha Life Insurance Indonesia",
+      appLink:
+        "https://play.google.com/store/apps/details?id=co.id.hanwhalife.agencymobile&hl=es_US",
     },
   ];
 
@@ -153,11 +193,11 @@ export default function Portfolio() {
     }
 
     if (years === 0) {
-      return `${months} month${months !== 1 ? 's' : ''}`;
+      return `${months} month${months !== 1 ? "s" : ""}`;
     } else if (months === 0) {
-      return `${years} year${years !== 1 ? 's' : ''}`;
+      return `${years} year${years !== 1 ? "s" : ""}`;
     } else {
-      return `${years} year${years !== 1 ? 's' : ''} ${months} month${months !== 1 ? 's' : ''}`;
+      return `${years} year${years !== 1 ? "s" : ""} ${months} month${months !== 1 ? "s" : ""}`;
     }
   };
 
@@ -238,7 +278,8 @@ export default function Portfolio() {
       duration: "Apr 2020 - Dec 2020",
       startDate: "2020-04-01",
       endDate: "2020-12-31",
-      description: "Collaborated on mobile app development projects and gained expertise in modern mobile frameworks.",
+      description:
+        "Collaborated on mobile app development projects and gained expertise in modern mobile frameworks.",
       tech: ["React Native", "Redux", "Firebase", "ClickUp"],
       achievements: [
         "Implement scanning camera for detect QR Code for payment e-wallet",
@@ -252,13 +293,12 @@ export default function Portfolio() {
       duration: "2019",
       startDate: "2019-09-01",
       endDate: "2019-12-31",
-      description: "Assisted in mobile app development and learned industry best practices.",
+      description:
+        "Assisted in mobile app development and learned industry best practices.",
       tech: ["React Native"],
-      achievements: [
-        "Contributed to UI development for a ecommerce app",
-      ],
+      achievements: ["Contributed to UI development for a ecommerce app"],
     },
-  ]
+  ];
 
   const freelanceProjects = [
     {
@@ -267,9 +307,14 @@ export default function Portfolio() {
       duration: "Completed", // Sesuaikan jika sudah selesai
       description:
         "Developing the official company profile website to showcase services, portfolio, and contact information. Focus on SEO, performance, and user experience.",
-      tech: ["Next JS", "Google Tag Manager", "Axios", "reCAPTCHA", "Tailwind CSS"],
-      image:
-        "/lestari-jaya-tama-cp-satu.png", // Ganti dengan path gambar yang sesuai
+      tech: [
+        "Next JS",
+        "Google Tag Manager",
+        "Axios",
+        "reCAPTCHA",
+        "Tailwind CSS",
+      ],
+      image: "/lestari-jaya-tama-cp-satu.png", // Ganti dengan path gambar yang sesuai
       features: [
         "SEO-friendly structure with Next.js",
         "Analytics implementation via Google Tag Manager",
@@ -291,8 +336,7 @@ export default function Portfolio() {
       description:
         "Building a Content Management System (CMS) dashboard to manage company data, articles, and service locations. Integrated with mapping features for visualization.",
       tech: ["Next JS", "Leaflet", "Axios", "TypeScript", "Tailwind CSS"],
-      image:
-        "/lestari-jaya-tama-cms.png", // Ganti dengan path gambar yang sesuai
+      image: "/lestari-jaya-tama-cms.png", // Ganti dengan path gambar yang sesuai
       features: [
         "Interactive map integration using Leaflet for location management",
         "Secure dashboard for content and user management",
@@ -313,18 +357,14 @@ export default function Portfolio() {
       description:
         "Performed maintenance and enhancements for the official DPMPTSP Tangerang Selatan portal, improving accessibility and reliability of public licensing services.",
       tech: ["Vue JS"],
-      image:
-        "/dpmptsp_satu.png",
+      image: "/dpmptsp_satu.png",
       features: [
         "Optimized website performance for faster access to licensing services",
         "Implemented real-time status tracking for permit applications",
         "Integrated secure user authentication and data management",
         "Ensured compliance with government security and accessibility standards",
       ],
-      screenshots: [
-        "/dpmptsp_satu.png",
-        "/dpmptsp_dua.png",
-      ],
+      screenshots: ["/dpmptsp_satu.png", "/dpmptsp_dua.png"],
       appLink: "https://dpmptsp.tangerangselatankota.go.id/portal",
     },
     {
@@ -333,32 +373,76 @@ export default function Portfolio() {
       duration: "Completed",
       description:
         "Developed a comprehensive mobile application for managing Umrah and Hajj travel packages, including booking system and travel guidance.",
-      tech: ["Flutter", "Firebase", "Google Maps API", "CMS", "Payment Gateway"],
-      image:
-        "/yadara.png",
+      tech: [
+        "Flutter",
+        "Firebase",
+        "Google Maps API",
+        "CMS",
+        "Payment Gateway",
+      ],
+      image: "/yadara.png",
       features: [
         "Real-time prayer times and Qibla direction",
         "Interactive maps of holy sites",
         "Package booking and management system",
         "Become a travel agent with easy registration and management tools",
-        "Earn commissions on every booking made through the app"
+        "Earn commissions on every booking made through the app",
       ],
-      screenshots: [
-        "/mockup_yadara.png",
-        "/mockup_yadara_2.png",
-      ],
+      screenshots: ["/mockup_yadara.png", "/mockup_yadara_2.png"],
       appLink: "https://yadaratravel.id/",
     },
-  ]
+  ];
 
   const skills = [
-    { category: "Frontend", items: ["Next JS", "React", "Redux", "TypeScript", "JavaScript", "HTML/CSS", "Tailwind CSS"] },
-    { category: "Backend", items: ["Java Spring", "Golang", "Firebase", "Supabase", "PostgreSQL", "REST API"] },
+    {
+      category: "Frontend",
+      items: [
+        "Next JS",
+        "React",
+        "Redux",
+        "TypeScript",
+        "JavaScript",
+        "HTML/CSS",
+        "Tailwind CSS",
+      ],
+    },
+    {
+      category: "Backend",
+      items: [
+        "Java Spring",
+        "Golang",
+        "Firebase",
+        "Supabase",
+        "PostgreSQL",
+        "REST API",
+      ],
+    },
     { category: "Mobile", items: ["Kotlin", "React Native", "Flutter"] },
-    { category: "Tools & Cloud", items: ["GCP", "Docker", "Jenkins", "Nexus", "Bruno", "DBeaver", "Elastic", "Dynatrace", "Python", "Machine Learning", "Minion"] },
-  ]
+    {
+      category: "Tools & Cloud",
+      items: [
+        "GCP",
+        "Docker",
+        "Jenkins",
+        "Nexus",
+        "Bruno",
+        "DBeaver",
+        "Elastic",
+        "Dynatrace",
+        "Python",
+        "Machine Learning",
+        "Minion",
+      ],
+    },
+  ];
 
-  const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => void }) => (
+  const ProjectModal = ({
+    project,
+    onClose,
+  }: {
+    project: Project;
+    onClose: () => void;
+  }) => (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -374,7 +458,9 @@ export default function Portfolio() {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 bg-white dark:bg-gray-800 z-10 p-4 border-b dark:border-gray-700 flex justify-between items-center">
-          <h3 className="text-2xl font-bold dark:text-white">{project.title}</h3>
+          <h3 className="text-2xl font-bold dark:text-white">
+            {project.title}
+          </h3>
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
@@ -387,13 +473,23 @@ export default function Portfolio() {
         <div className="p-6">
           <div className="grid md:grid-cols-2 gap-8 mb-8">
             <div>
-              <h4 className="font-semibold text-lg mb-2 dark:text-white">Client</h4>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">{project.client}</p>
+              <h4 className="font-semibold text-lg mb-2 dark:text-white">
+                Client
+              </h4>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
+                {project.client}
+              </p>
 
-              <h4 className="font-semibold text-lg mb-2 dark:text-white">Description</h4>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">{project.description}</p>
+              <h4 className="font-semibold text-lg mb-2 dark:text-white">
+                Description
+              </h4>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
+                {project.description}
+              </p>
 
-              <h4 className="font-semibold text-lg mb-2 dark:text-white">Technologies</h4>
+              <h4 className="font-semibold text-lg mb-2 dark:text-white">
+                Technologies
+              </h4>
               <div className="flex flex-wrap gap-2 mb-4">
                 {project.tech.map((tech) => (
                   <span
@@ -404,10 +500,24 @@ export default function Portfolio() {
                   </span>
                 ))}
               </div>
+              {project.appLink && (
+                <motion.a
+                  href={project.appLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors inline-block"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  View App
+                </motion.a>
+              )}
             </div>
 
             <div>
-              <h4 className="font-semibold text-lg mb-2 dark:text-white">Key Features</h4>
+              <h4 className="font-semibold text-lg mb-2 dark:text-white">
+                Key Features
+              </h4>
               <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-2">
                 {project.features.map((feature) => (
                   <li key={feature}>{feature}</li>
@@ -415,31 +525,39 @@ export default function Portfolio() {
               </ul>
             </div>
           </div>
-
-          <h4 className="font-semibold text-lg mb-4 dark:text-white">Screenshots</h4>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {project.screenshots.map((screenshot, index) => (
-              <motion.div
-                key={index}
-                className="relative aspect-[9/16] rounded-lg overflow-hidden"
-                whileHover={{ scale: 1.05 }}
-              >
-                <img
-                  src={screenshot || "/placeholder.svg"}
-                  alt={`${project.title} screenshot ${index + 1}`}
-                  className="w-full h-full object-cover"
-                />
-              </motion.div>
-            ))}
-          </div>
+          {project.screenshots.length > 0 && (
+            <>
+              <h4 className="font-semibold text-lg mb-4 dark:text-white">
+                Screenshots
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {project.screenshots.map((screenshot, index) => (
+                  <motion.div
+                    key={index}
+                    className="relative aspect-[9/16] rounded-lg overflow-hidden"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <img
+                      src={screenshot || "/placeholder.svg"}
+                      alt={`${project.title} screenshot ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </motion.div>
     </motion.div>
-  )
+  );
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 dark:text-gray-100">
-      <motion.div className="fixed top-0 left-0 right-0 h-1 bg-blue-600 origin-left z-50" style={{ scaleX }} />
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-blue-600 origin-left z-50"
+        style={{ scaleX }}
+      />
 
       {/* Hero Section with 3D Particles */}
       <section className="h-screen relative overflow-hidden">
@@ -528,7 +646,12 @@ export default function Portfolio() {
               </motion.a>
             </motion.div>
 
-            <motion.div className="mt-12" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}>
+            <motion.div
+              className="mt-12"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+            >
               <motion.button
                 onClick={(e) => {
                   e.preventDefault();
@@ -598,18 +721,31 @@ export default function Portfolio() {
               transition={{ delay: 0.2 }}
             >
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg mb-8">
-                Passionate full stack developer with 6+ years of experience in building scalable web, mobile, and
-                backend applications. Specialized in Next JS, Kotlin, and Java Spring, with a strong focus on clean
-                architecture, maintainable code, and optimal performance.
+                Passionate full stack developer with 6+ years of experience in
+                building scalable web, mobile, and backend applications.
+                Specialized in Next JS, Kotlin, and Java Spring, with a strong
+                focus on clean architecture, maintainable code, and optimal
+                performance.
               </p>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg mb-8">
-                I've worked across startup, enterprise, insurance, and digital banking industries, delivering end-to-end
-                solutions from frontend interfaces and Android apps to backend services, databases, and deployment pipelines.
+                I've worked across startup, enterprise, insurance, and digital
+                banking industries, delivering end-to-end solutions from
+                frontend interfaces and Android apps to backend services,
+                databases, and deployment pipelines.
               </p>
               <div className="mt-6">
-                <h3 className="font-semibold mb-4 text-xl dark:text-white">Tech Stack:</h3>
+                <h3 className="font-semibold mb-4 text-xl dark:text-white">
+                  Tech Stack:
+                </h3>
                 <div className="flex flex-wrap gap-3">
-                  {["Next JS", "Redux", "Kotlin", "Java Spring", "PostgreSQL", "Docker"].map((tech, index) => (
+                  {[
+                    "Next JS",
+                    "Redux",
+                    "Kotlin",
+                    "Java Spring",
+                    "PostgreSQL",
+                    "Docker",
+                  ].map((tech, index) => (
                     <motion.span
                       key={tech}
                       className="bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-full text-sm dark:text-gray-200"
@@ -628,14 +764,18 @@ export default function Portfolio() {
 
             <div className="grid grid-cols-2 gap-6">
               {[
-                { icon: Smartphone, title: "Mobile Apps", value: "3+ Released" },
+                {
+                  icon: Smartphone,
+                  title: "Mobile Apps",
+                  value: "3+ Released",
+                },
                 { icon: Code2, title: "Experience", value: "6+ Years" },
                 { icon: Star, title: "App Rating", value: "4.8/5.0" },
                 {
                   icon: ExternalLink,
                   title: "App Downloads",
                   value: "500K+",
-                  onClick: () => setIsDownloadModalOpen(true) // Tambahkan onClick untuk modal
+                  onClick: () => setIsDownloadModalOpen(true), // Tambahkan onClick untuk modal
                 },
               ].map((stat, index) => (
                 <motion.div
@@ -649,8 +789,12 @@ export default function Portfolio() {
                   onClick={stat.onClick} // Tambahkan handler klik
                 >
                   <stat.icon className="text-blue-600 dark:text-blue-400 mb-4 w-8 h-8" />
-                  <h3 className="font-semibold text-lg mb-2 dark:text-white">{stat.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-300">{stat.value}</p>
+                  <h3 className="font-semibold text-lg mb-2 dark:text-white">
+                    {stat.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    {stat.value}
+                  </p>
                 </motion.div>
               ))}
             </div>
@@ -685,7 +829,9 @@ export default function Portfolio() {
                 viewport={{ once: true }}
                 transition={{ delay: groupIndex * 0.1 }}
               >
-                <h3 className="text-xl font-semibold mb-4 text-blue-600 dark:text-blue-400">{skillGroup.category}</h3>
+                <h3 className="text-xl font-semibold mb-4 text-blue-600 dark:text-blue-400">
+                  {skillGroup.category}
+                </h3>
                 <div className="flex flex-wrap gap-2">
                   {skillGroup.items.map((skill, skillIndex) => (
                     <motion.span
@@ -694,8 +840,14 @@ export default function Portfolio() {
                       initial={{ opacity: 0, scale: 0.8 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
-                      transition={{ delay: groupIndex * 0.1 + skillIndex * 0.05 }}
-                      whileHover={{ scale: 1.1, backgroundColor: "#3b82f6", color: "#ffffff" }}
+                      transition={{
+                        delay: groupIndex * 0.1 + skillIndex * 0.05,
+                      }}
+                      whileHover={{
+                        scale: 1.1,
+                        backgroundColor: "#3b82f6",
+                        color: "#ffffff",
+                      }}
                     >
                       {skill}
                     </motion.span>
@@ -738,17 +890,29 @@ export default function Portfolio() {
                 <div className="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-2">
                     <div>
-                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{job.position}</h3>
-                      <p className="text-blue-600 dark:text-blue-400 font-medium">{job.company}</p>
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                        {job.position}
+                      </h3>
+                      <p className="text-blue-600 dark:text-blue-400 font-medium">
+                        {job.company}
+                      </p>
                     </div>
                     <div className="text-left md:text-right">
-                      <p className="text-gray-600 dark:text-gray-300">{job.duration}</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{calculatePeriod(job.startDate, job.endDate)}</p>
+                      <p className="text-gray-600 dark:text-gray-300">
+                        {job.duration}
+                      </p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        {calculatePeriod(job.startDate, job.endDate)}
+                      </p>
                     </div>
                   </div>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">{job.description}</p>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4">
+                    {job.description}
+                  </p>
 
-                  <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-2">Key Achievements:</h4>
+                  <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-2">
+                    Key Achievements:
+                  </h4>
                   <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 mb-4 space-y-1">
                     {job.achievements.map((achievement, i) => (
                       <li key={i}>{achievement}</li>
@@ -771,8 +935,15 @@ export default function Portfolio() {
           </div>
 
           {/* Freelance Projects */}
-          <motion.div className="mt-20" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-            <h3 className="text-2xl font-bold mb-8 text-center dark:text-white">Freelance Projects</h3>
+          <motion.div
+            className="mt-20"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="text-2xl font-bold mb-8 text-center dark:text-white">
+              Freelance Projects
+            </h3>
             <div className="grid md:grid-cols-2 gap-8">
               {freelanceProjects.map((project, index) => (
                 <motion.div
@@ -798,11 +969,17 @@ export default function Portfolio() {
                     <div className="flex items-center mb-4">
                       <Briefcase className="text-blue-600 dark:text-blue-400 w-6 h-6 mr-3" />
                       <div>
-                        <h4 className="text-lg font-semibold dark:text-white">{project.title}</h4>
-                        <p className="text-gray-600 dark:text-gray-300">{project.client}</p>
+                        <h4 className="text-lg font-semibold dark:text-white">
+                          {project.title}
+                        </h4>
+                        <p className="text-gray-600 dark:text-gray-300">
+                          {project.client}
+                        </p>
                       </div>
                     </div>
-                    <p className="text-gray-600 dark:text-gray-300 mb-4">{project.description}</p>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">
+                      {project.description}
+                    </p>
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.tech.slice(0, 3).map((tech) => (
                         <span
@@ -864,14 +1041,18 @@ export default function Portfolio() {
                   <img
                     src={project.image || "/placeholder.svg"}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    className="w-full h-full object-contain p-6 bg-gray-50 dark:bg-gray-900 transition-transform duration-300 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </motion.div>
 
                 <div className="p-8">
-                  <h3 className="text-2xl font-semibold mb-4 dark:text-white">{project.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6">{project.description}</p>
+                  <h3 className="text-2xl font-semibold mb-4 dark:text-white">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-6">
+                    {project.description}
+                  </p>
                   <div className="flex flex-wrap gap-2">
                     {project.tech.map((tech) => (
                       <motion.span
@@ -883,6 +1064,19 @@ export default function Portfolio() {
                       </motion.span>
                     ))}
                   </div>
+                  {project.appLink && (
+                    <motion.a
+                      href={project.appLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-6 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors inline-block"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      View App
+                    </motion.a>
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -958,10 +1152,14 @@ export default function Portfolio() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.7, opacity: 0 }}
             >
-              <h2 className="text-xl font-bold mb-4 dark:text-white">Send Email</h2>
+              <h2 className="text-xl font-bold mb-4 dark:text-white">
+                Send Email
+              </h2>
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                  <label className="block mb-1 dark:text-gray-300">Your Email</label>
+                  <label className="block mb-1 dark:text-gray-300">
+                    Your Email
+                  </label>
                   <input
                     type="email"
                     name="senderEmail"
@@ -973,7 +1171,9 @@ export default function Portfolio() {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block mb-1 dark:text-gray-300">Subject</label>
+                  <label className="block mb-1 dark:text-gray-300">
+                    Subject
+                  </label>
                   <input
                     type="text"
                     name="subject"
@@ -985,7 +1185,9 @@ export default function Portfolio() {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block mb-1 dark:text-gray-300">Message</label>
+                  <label className="block mb-1 dark:text-gray-300">
+                    Message
+                  </label>
                   <textarea
                     name="body"
                     value={formData.body}
@@ -1032,8 +1234,26 @@ export default function Portfolio() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.7, opacity: 0 }}
             >
-              <h2 className="text-2xl font-bold mb-6 text-center dark:text-white">Select App to Download</h2>
+              <h2 className="text-2xl font-bold mb-6 text-center dark:text-white">
+                Select App to Download
+              </h2>
               <div className="space-y-4">
+                <a
+                  href="https://play.google.com/store/apps/details?id=co.id.newmb.btnsyariah&pcampaignid=web_share"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-3 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors"
+                  onClick={() => setIsDownloadModalOpen(false)}
+                >
+                  <img
+                    src="/logo-bsn.png"
+                    alt="Bale Syariah"
+                    className="w-12 h-12 object-contain rounded-md"
+                  />
+                  <span className="text-gray-800 dark:text-white font-medium">
+                    Bale Syariah
+                  </span>
+                </a>
                 <a
                   href="https://m.helpdesk-web.telkomsel.co.id/landingpage/"
                   target="_blank"
@@ -1046,7 +1266,9 @@ export default function Portfolio() {
                     alt="Mobile Service Desk"
                     className="w-12 h-12 object-contain rounded-md"
                   />
-                  <span className="text-gray-800 dark:text-white font-medium">Mobile Service Desk</span>
+                  <span className="text-gray-800 dark:text-white font-medium">
+                    Mobile Service Desk
+                  </span>
                 </a>
                 <a
                   href="https://play.google.com/store/apps/details?id=co.id.hanwhalife.agencymobile&hl=es_US"
@@ -1060,7 +1282,9 @@ export default function Portfolio() {
                     alt="Orange Planner"
                     className="w-12 h-12 object-contain rounded-md"
                   />
-                  <span className="text-gray-800 dark:text-white font-medium">Orange Planner</span>
+                  <span className="text-gray-800 dark:text-white font-medium">
+                    Orange Planner
+                  </span>
                 </a>
                 <a
                   href="https://play.google.com/store/apps/details?id=com.sg.medicloud&hl=en"
@@ -1074,7 +1298,9 @@ export default function Portfolio() {
                     alt="Mednefits"
                     className="w-12 h-12 object-contain rounded-md"
                   />
-                  <span className="text-gray-800 dark:text-white font-medium">Mednefits</span>
+                  <span className="text-gray-800 dark:text-white font-medium">
+                    Mednefits
+                  </span>
                 </a>
               </div>
               <button
@@ -1090,8 +1316,13 @@ export default function Portfolio() {
       </AnimatePresence>
 
       <AnimatePresence>
-        {selectedProject && <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />}
+        {selectedProject && (
+          <ProjectModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
+        )}
       </AnimatePresence>
     </div>
-  )
+  );
 }
